@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#070b14">
+<meta name="description" content="StudyOS – a minimal daily study planner">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>StudyOS</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="logo">S</span><b>StudyOS</b></div>
+  <button id="installBtn" class="pill" hidden>Install</button>
+</header>
+
+<main>
+  <!-- PLAN VIEW -->
+  <section id="view-plan" class="view active">
+    <div class="datebar">
+      <button id="prevDay" class="ib" aria-label="Previous day">‹</button>
+      <div class="dlabel">
+        <b id="dateTitle">Today</b><small id="dateSub"></small>
+        <input id="datePick" type="date" aria-label="Pick a date">
+      </div>
+      <button id="nextDay" class="ib" aria-label="Next day">›</button>
+    </div>
+
+    <div class="card hero">
+      <div class="hero-top">
+        <div><div class="big"><span id="doneH">0</span><span class="of"> / 12 h</span></div>
+        <div class="muted"><span id="remH">12</span> h remaining</div></div>
+        <div class="pct"><span id="pct">0</span>%</div>
+      </div>
+      <div class="bar"><i id="barAll"></i></div>
+      <div class="split">
+        <div><div class="row2"><span>Main subjects</span><b id="mainTxt">0 / 8 h</b></div><div class="bar sm main"><i id="barMain"></i></div></div>
+        <div><div class="row2"><span>Other subjects</span><b id="otherTxt">0 / 4 h</b></div><div class="bar sm other"><i id="barOther"></i></div></div>
+      </div>
+    </div>
+
+    <div class="week" id="week" aria-label="Last 7 days"></div>
+
+    <div id="list" class="list"></div>
+
+    <button id="resetBtn" class="ghost">Reset this day</button>
+  </section>
+
+  <!-- FOCUS VIEW -->
+  <section id="view-focus" class="view">
+    <div class="card timer">
+      <div class="ringwrap">
+        <svg viewBox="0 0 200 200" class="ring" aria-hidden="true">
+          <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#34d399"/></linearGradient></defs>
+          <circle cx="100" cy="100" r="90" class="track"/>
+          <circle cx="100" cy="100" r="90" class="prog" id="ringProg"/>
+        </svg>
+        <div class="tcenter"><div id="clock" class="clock">25:00</div><div id="tstate" class="muted">Ready to focus</div></div>
+      </div>
+      <div class="tbtns">
+        <button id="startBtn" class="primary">Start</button>
+        <button id="resetTimer" class="ghost sq">Reset</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="row2"><b>Focus length</b><span class="muted">minutes</span></div>
+      <div class="chips" id="presets"></div>
+      <div class="custom">
+        <input id="customMin" type="number" inputmode="numeric" min="1" max="180" placeholder="Custom (1–180)">
+        <button id="setCustom" class="pill">Set</button>
+      </div>
+      <label class="switch"><input id="notifyChk" type="checkbox"><span class="sw"></span><span>Show a notification when time is up</span></label>
+      <p class="hint muted">Sound and vibration always play when the timer ends. Keep the app open for the most reliable alert.</p>
+    </div>
+  </section>
+</main>
+
+<nav class="tabs">
+  <button data-view="plan" class="active"><span>▦</span>Plan</button>
+  <button data-view="focus"><span>◔</span>Focus<i id="runDot" hidden></i></button>
+</nav>
+
+<div id="banner" class="banner" hidden>
+  <div><b>Time is up!</b><div class="muted">Nice work. Take a short break.</div></div>
+  <button id="bannerOk" class="pill">Dismiss</button>
+</div>
+
+<dialog id="dlg">
+  <form method="dialog">
+    <h3>Reset this day?</h3>
+    <p class="muted">All checkmarks for <b id="dlgDate"></b> will be cleared. This can't be undone.</p>
+    <div class="dbtns"><button value="cancel" class="ghost">Cancel</button><button value="ok" id="dlgOk" class="danger">Reset day</button></div>
+  </form>
+</dialog>
+
+<script src="app.js"></script>
+</body>
+</html>
